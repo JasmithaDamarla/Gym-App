@@ -1,0 +1,48 @@
+.add-training-box {
+    width: 580px;
+    margin-left: 100px;
+    background: #000;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 750px;
+    color: white;
+    margin-left: 330px;
+    margin-top: 80px;
+  }
+  
+  .add-training-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .add-training-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-training-field {
+    margin-bottom: 15px;
+  }
+  
+  .add-training-field select,
+  .add-training-field input {
+    width: 93%;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .add-training-button {
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-training-button:hover {
+    background: #444;
+  }
+  

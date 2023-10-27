@@ -1,0 +1,65 @@
+/* Body styles */
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Container styles */
+  .registration-container {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Form styles */
+  .registration-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .registration-form label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .registration-form input,
+  .registration-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .registration-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Response styles */
+  .response {
+    margin-top: 20px;
+    background-color: #e6f7ff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .response p {
+    margin: 10px 0;
+  }
+  
+  /* Additional styles */
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  

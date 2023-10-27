@@ -1,0 +1,98 @@
+.center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 200cqh;
+  }
+  
+  .traineeRegistration-heading {
+    text-align: center;
+    padding-bottom: 10px;
+    color: black;
+  }
+  
+  .trainerRegistration-heading {
+    text-align: center;
+    padding-bottom: 10px;
+    color: black;
+  }
+  
+  .registration-container {
+    background-color: rgb(212, 203, 203);
+    /* border: 2px solid #ccc; */
+    border-radius: 5px;
+    padding: 20px;
+    max-height: 500px; 
+    overflow-y: auto; 
+    padding-top: 10px;
+    width : 940px;
+  }
+
+  .trainer-center-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 200cqh;
+  }
+  
+  .registration-form .register-form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .registration-form label {
+    flex: 1;
+    margin-right: 10px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .registration-form .register-input,
+  .registration-form .register-textarea,
+  .registration-form select {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .registration-form .register-button {
+    background-color: #b85f17;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 650px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover:enabled{
+    background-color: #ccc;
+    color: black;
+  }
+
+  .register-response {
+    background-color: #242323;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 98%;
+  }
+  
+  .register-response h3 {
+    text-decoration: none;
+  }
+
+  .reset-button {
+    margin-right: 70px;
+  }
+  .reset-button:hover{
+    background-color: #ccc;
+    color: black;
+  }

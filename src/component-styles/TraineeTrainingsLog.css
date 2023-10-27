@@ -1,0 +1,89 @@
+.trainee-trainings-form {
+    width: 700px;
+    margin-left: 280px;
+    margin-top: 80px;
+    padding: 20px;
+    background-color: #000;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 720px;
+  }
+  
+  .trainee-trainings-form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .trainee-trainings-form .trainee-trainings-search-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  
+  .trainee-trainings-form .trainee-trainings-search-field {
+    margin-right: 20px;
+  }
+  
+  .trainee-trainings-form .trainee-trainings-search-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .trainee-trainings-form .trainee-trainings-search-field input,
+  .trainee-trainings-form .trainee-trainings-search-field select {
+    width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .trainee-trainings-form .trainee-trainings-search-field select {
+    width: 210px;
+  }
+  
+  .trainee-trainings-log-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 10px;
+  }
+  
+  .trainee-trainings-log-table th,
+  .trainee-trainings-log-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .trainee-trainings-log-table th {
+    background: #151718;
+    color: white;
+  }
+  
+  .trainee-trainings-log-table td {
+    background: #302f2f;
+  }
+  .trainee-trainings-form button {
+    background-color: rgb(120, 120, 125);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    width: 200px;
+  }
+  
+  .trainee-trainings-form button:hover {
+    background: #444;
+  }
+  

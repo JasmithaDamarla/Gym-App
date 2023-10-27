@@ -1,0 +1,44 @@
+.update-trainer-box {
+    width: 700px;
+    margin-left: 250px;
+    background: #000;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 750px;
+    margin-top: 80px;
+  }
+  
+  .update-trainer-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .update-trainer-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .update-trainer-field {
+    margin-bottom: 10px;
+  }
+  
+  .update-trainer-field label {
+    color: white;
+  }
+  
+  .update-trainer-input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    color: #000;
+  }
+  
+  .update-trainer-field input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+  }

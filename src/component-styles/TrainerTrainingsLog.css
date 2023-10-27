@@ -1,0 +1,125 @@
+.trainer-trainings-form {
+    width: 700px;
+    margin: 0 auto;
+    background: #000;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 750px;
+    margin-left: 270px;
+    margin-top: 80px;
+  }
+  
+  .trainer-trainings-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .trainer-trainings-form .trainer-trainings-search-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  
+  .trainer-trainings-form .trainer-trainings-search-field {
+    margin-right: 20px;
+  }
+  
+  .trainer-trainings-form .trainer-trainings-search-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .trainer-trainings-form .trainer-trainings-search-field input,
+  .trainer-trainings-form .trainer-trainings-search-field select {
+    width: 200px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .trainer-trainings-form .trainer-trainings-search-field select {
+    width: 210px;
+  }
+  
+  
+  .trainer-trainings-search-button {
+    background-color: rgb(120, 120, 125);
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    width:200px;
+    cursor: pointer;
+  }
+  
+  .trainer-trainings-search-button:hover {
+    background: #444;
+  }
+
+  .trainer-trainings-list {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    max-height: 300px;
+    overflow: auto;
+  }
+  
+  .trainer-trainings-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .trainer-trainings-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .trainer-trainings-list li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  /* Styles for TrainerTrainingsLog component
+  .trainer-trainings-log-list {
+    background: #171616;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    max-height: 400px;
+    overflow: auto;
+  } */
+  
+  .trainer-trainings-log-table {
+    width: 97%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .trainer-trainings-log-table th,
+  .trainer-trainings-log-table td {
+    border: 1px solid #999797;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .trainer-trainings-log-table th {
+    background: #232121;
+    color: white;
+  }
+  
+  .trainer-trainings-log-table td {
+    background: #484646;
+  }
+  

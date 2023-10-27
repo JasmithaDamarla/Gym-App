@@ -1,0 +1,18 @@
+.home-content-container {
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+  }
+
+.home-container{
+  align-items: center;
+  margin-top: 50px;
+}
+
+.home-content {
+  color: black;
+  font-family: 'Times New Roman';
+  font-size: large;
+}
+  

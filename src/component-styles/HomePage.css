@@ -1,0 +1,210 @@
+.navbar {
+  background-color: #1c1b1c;
+  color: #fff;
+  padding: 16px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.gym-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.gymapp-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  margin-right: 40px; 
+  font-size: 18px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px; 
+}
+
+.nav-links a:hover {
+  color:bisque;
+  text-decoration: underline;
+}
+
+/* .footer-navbar {
+  background-color: #131317;
+  color: #fff;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  margin-top: auto;
+  /* padding: 20px;
+  /* position: absolute; 
+  margin-top: auto;
+  width: 100%;
+  left:0;
+  bottom: 0;
+  z-index: 1000; 
+  overflow-x: scroll; 
+}
+
+.footer-links {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+
+.footer-links a:hover {
+  text-decoration: underline;
+  color:rgb(154, 228, 228);
+}
+ */
+
+/* .content-container {
+  margin-top: auto; 
+  padding: 16px;
+  background-color: #b481ac; 
+} */
+
+/* Add this to your CSS file */
+
+.footer-container {
+  background-color: #131317;
+  color: #fff;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  margin-top: auto;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  color: rgb(154, 228, 228);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Add this to your CSS file */
+
+.about-page {
+  background-color: hsl(0, 62%, 10%);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  color: #c2c2d5;
+  margin-top: 100px;
+  margin-bottom: 85px;
+}
+
+.terms-page {
+  background-color: #deb9b9;
+  padding: 20px;
+  color: red;
+  margin-top: 100px;
+  border-radius: 5px;
+  margin-bottom: 85px;
+  margin-left: 30px;
+  margin-right: 50px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.page-content {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+
+/* ContactUs.css */
+
+.contact-us-container {
+  background-color: #5f72dd;
+  color: #c2c2d5;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  margin-left: 30px;
+  margin-right: 50px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  color: #c2c2d5;
+}
+
+.contact-list li {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #c2c2d5;
+}
+
+.contact-list a {
+  text-decoration: none;
+  color: #c2c2d5;
+  display: flex;
+  align-items: center;
+
+}
+
+.contact-list a i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.contact-list a:hover{
+  color: darksalmon;
+}
+
+
