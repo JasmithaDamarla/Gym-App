@@ -1,27 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Typography,
+  Grid,
+  TablePagination,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import '../component-styles/TraineeTrainingsLog.css';
 
 interface TraineeTrainingTypeResponseDTO {
-  trainingName:string,
-  trainingDate:Date,
-  trainingType:string,
-  duration: Number,
-  trainerName :string
+  trainingName: string;
+  trainingDate: Date;
+  trainingType: string;
+  duration: Number;
+  trainerName: string;
 }
 
 const TraineeTrainings: React.FC = () => {
   const location = useLocation();
-  const [userName,setUserName] = useState(location.state.userName);
+  const [userName, setUserName] = useState(location.state.userName);
   const [trainerName, setTrainerName] = useState('');
   const [specialization, setSpecialization] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [trainingsList, setTrainingsList] = useState<TraineeTrainingTypeResponseDTO[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
+
+  const handleChangePage = (event: any, newPage: number) => {
+    setPage(newPage);
+  };
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    params.append('username', userName); 
+    params.append('username', userName);
     if (trainerName) params.append('trainerName', trainerName);
     if (specialization) params.append('trainingType', specialization);
     if (startDate) params.append('periodFrom', startDate);
@@ -37,83 +60,118 @@ const TraineeTrainings: React.FC = () => {
     handleSearch();
   }, []);
 
-
-
   return (
     <div className="trainee-trainings-form">
-      <h1>Trainee Trainings</h1>
-      <div className="trainee-trainings-search-section">
-      <div className="trainee-trainings-search-field">
-          <label>Search by User Name:</label>
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </div>
-        <div className="trainee-trainings-search-field">
-          <label>Search by Trainer Name:</label>
-          <input
-            type="text"
-            value={trainerName}
-            onChange={(e) => setTrainerName(e.target.value)}
-          />
-        </div>
-        <div className="trainee-trainings-search-field">
-          <label>Search by Specialization:</label>
-          <select
-            value={specialization}
-            onChange={(e) => setSpecialization(e.target.value)}
-          >
-            <option value="">Select Specialization</option>
-            <option value="ZUMBA">ZUMBA</option>
-            <option value="FITNESS">FITNESS</option>
-            <option value="YOGA">YOGA</option>
-            <option value="STRETCHING">STRETCHING</option>
-            <option value="RESISTANCE">RESISTANCE</option>
-          </select>
-        </div>
-        <div className="trainee-trainings-search-field">
-          <label>Search by Date (From/To):</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-        <button onClick={handleSearch}>Search</button>
+      <Typography variant="h4">
+        <p className="trainee-trainings-heading">Trainee Trainings</p>
+      </Typography>
+      <div className="trainee-search-container">
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={2}>
+            <InputLabel className='label' style={{color:'black'}}>User Name</InputLabel>
+            <TextField
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              fullWidth
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <InputLabel className='label' style={{color:'black'}}>Trainer Name</InputLabel>
+            <TextField
+              type="text"
+              value={trainerName}
+              onChange={(e) => setTrainerName(e.target.value)}
+              fullWidth
+              placeholder='Trainer Name'
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <FormControl fullWidth>
+              <InputLabel className='label' style={{height:'50px',marginTop:'20px'}}>Specialization</InputLabel>
+              <Select
+                value={specialization}
+                onChange={(e) => setSpecialization(e.target.value as string)}
+                style={{marginTop:'20px'}}
+              >
+                <MenuItem value="">Select Specialization</MenuItem>
+                <MenuItem value="ZUMBA">ZUMBA</MenuItem>
+                <MenuItem value="FITNESS">FITNESS</MenuItem>
+                <MenuItem value="YOGA">YOGA</MenuItem>
+                <MenuItem value="STRETCHING">STRETCHING</MenuItem>
+                <MenuItem value="RESISTANCE">RESISTANCE</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={2}>
+            <InputLabel className='date-heading' style={{color:'black'}}>Start Date</InputLabel>
+            <TextField
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={2}>
+          <InputLabel className='date-heading' style={{color:'black'}}>End Date</InputLabel>
+            <TextField
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Button
+              variant="contained"
+              onClick={handleSearch}
+              startIcon={<SearchIcon />}
+              fullWidth
+              style={{height:'50px',marginTop:'20px'}}
+            >
+              Search
+            </Button>
+          </Grid>
+        </Grid>
       </div>
       <div className="trainee-trainings-log-list">
-        <h2>Trainings List</h2>
-        <table className="trainee-trainings-log-table">
-          <thead>
-            <tr>
-              <th>Training Date</th>
-              <th>Training Name</th>
-              <th>Training Type</th>
-              <th>Trainer's Name</th>
-              <th>Training Duration</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trainingsList.map((training, index) => (
-              <tr key={index}>
-                <td>{training.trainingDate + ''}</td>
-                <td>{training.trainingName}</td>
-                <td>{training.trainingType}</td>
-                <td>{training.trainerName}</td>
-                <td>{training.duration + ''}</td>
-              </tr>
+        <Typography variant="h5">
+          <p className="trainee-trainings-list-heading">Trainings List</p>
+        </Typography>
+        <Table className="table-container">
+          <TableHead>
+            <TableRow className="table-row">
+              <TableCell className="table-heading">Training Date</TableCell>
+              <TableCell className="table-heading">Training Name</TableCell>
+              <TableCell className="table-heading">Training Type</TableCell>
+              <TableCell className="table-heading">Trainer's Name</TableCell>
+              <TableCell className="table-heading">Training Duration</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {trainingsList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((training, index) => (
+              <TableRow key={index} className="table-row">
+                <TableCell>{training.trainingDate + ''}</TableCell>
+                <TableCell>{training.trainingName}</TableCell>
+                <TableCell>{training.trainingType}</TableCell>
+                <TableCell>{training.trainerName}</TableCell>
+                <TableCell>{training.duration + ''}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
+        <TablePagination
+          component="div"
+          count={trainingsList.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={(event) => setRowsPerPage(parseInt(event.target.value, 10))}
+        />
       </div>
-
     </div>
   );
 };

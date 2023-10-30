@@ -1,113 +1,160 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  Button,
+  TextField,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Typography,
+  Grid,
+  InputLabel,
+  TablePagination,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import '../component-styles/TrainerTrainingsLog.css';
 
 interface TrainerTrainingTypeResponseDTO {
-  trainingName: string,
-  trainingDate: Date,
-  trainingType: string,
-  duration: Number,
-  traineeName: string
+  trainingName: string;
+  trainingDate: Date;
+  trainingType: string;
+  duration: Number;
+  traineeName: string;
 }
-
 
 const TrainerTrainings: React.FC = () => {
   const location = useLocation();
-  const [userName,setUserName] = useState(location.state.userName);
+  const [userName, setUserName] = useState(location.state.userName);
   const [traineeName, setTraineeName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [trainingsList, setTrainingsList] = useState<TrainerTrainingTypeResponseDTO[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event: any, newPage: number) => {
+    setPage(newPage);
+  };
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-  
+
     if (userName) {
       params.append('userName', userName);
     }
-  
+
     if (traineeName) params.append('traineeName', traineeName);
     if (startDate) params.append('periodFrom', startDate);
     if (endDate) params.append('periodTo', endDate);
 
-    
-  
     fetch(`http://localhost:4001/main/trainer/getTrainersTrainings?${params.toString()}`)
       .then((response) => response.json())
       .then((data) => setTrainingsList(data))
       .catch((error) =>
         console.error('Error fetching trainer trainings:', error)
-        );
+      );
   };
-  
-  
+
   useEffect(() => {
     handleSearch();
   }, [userName, traineeName, startDate, endDate]);
 
   return (
     <div className="trainer-trainings-form">
-      <h1 className="trainer-trainings-heading">Trainer Trainings</h1>
-      <div className="trainer-trainings-search-section">
-        <div className="trainer-trainings-search-field">
-          <label>Search by User Name:</label>
-          <input
+      <Typography variant="h4">
+        <p className="trainer-trainings-heading">Trainer Trainings</p>
+      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={2.2}>
+          <TextField
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            fullWidth
+            label="User Name"
+            style={{marginTop:'20px'}}
+            InputProps={{readOnly:true}}
           />
-        </div>
-        <div className="trainer-trainings-search-field">
-          <label>Search by Date (From/To):</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-        <div className="trainer-trainings-search-field">
-          <label>Search by Trainee Name:</label>
-          <input
+        </Grid>
+        <Grid item xs={2.2}>
+            <InputLabel className='date-heading' style={{color:'black'}}>Start Date</InputLabel>
+            <TextField
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              fullWidth
+              // label='From Date : '
+            />
+          </Grid>
+          <Grid item xs={2.2}>
+          <InputLabel className='date-heading' style={{color:'black'}}>End Date</InputLabel>
+            <TextField
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              fullWidth
+              // label='To Date : '
+            />
+          </Grid>
+        <Grid item xs={2.2}>
+        <InputLabel className='trainee-name-heading' style={{color:'black'}}>Trainee Name</InputLabel>
+          <TextField
             type="text"
             value={traineeName}
             onChange={(e) => setTraineeName(e.target.value)}
+            fullWidth
+            placeholder="Trainee Name"
           />
-        </div>
-        <button className="trainer-trainings-search-button" onClick={handleSearch}>
-          Search
-        </button>
-      </div>
+        </Grid>
+        <Grid item xs={2.2}>
+          <Button
+            variant="contained"
+            onClick={handleSearch}
+            fullWidth
+            style={{height:'50px',marginTop:'20px'}}
+            startIcon={<SearchIcon />}
+          >
+            Search
+          </Button>
+        </Grid>
+      </Grid>
       <div className="trainer-trainings-log-list">
-        <h2>Trainings List</h2>
-        <table className="trainer-trainings-log-table">
-          <thead>
-            <tr>
-              <th>Training Date</th>
-              <th>Training Name</th>
-              <th>Training Type</th>
-              <th>Trainee's Name</th>
-              <th>Training Duration</th>
-            </tr>
-          </thead>
-          <tbody>
-            {trainingsList.map((training, index) => (
-              <tr key={index}>
-                <td>{training.trainingDate + ''}</td>
-                <td>{training.trainingName}</td>
-                <td>{training.trainingType}</td>
-                <td>{training.traineeName}</td>
-                <td>{training.duration + ''}</td>
-              </tr>
+        <Typography variant="h5"><p className="trainings-list-heading">Trainer Trainings</p></Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Training Date</TableCell>
+              <TableCell>Training Name</TableCell>
+              <TableCell>Training Type</TableCell>
+              <TableCell>Trainee's Name</TableCell>
+              <TableCell>Training Duration</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {trainingsList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((training, index) => (
+              <TableRow key={index}>
+                <TableCell>{training.trainingDate + ''}</TableCell>
+                <TableCell>{training.trainingName}</TableCell>
+                <TableCell>{training.trainingType}</TableCell>
+                <TableCell>{training.traineeName}</TableCell>
+                <TableCell>{training.duration + ''}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
+        <TablePagination
+          component="div"
+          count={trainingsList.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={(event) => setRowsPerPage(parseInt(event.target.value, 10))}
+        />
       </div>
-
     </div>
   );
 };

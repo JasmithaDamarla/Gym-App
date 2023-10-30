@@ -1,110 +1,103 @@
-.trainer-details-box {
-    width: 780px;
-    margin-left: 180px;
-    background: #000; 
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: auto; 
-    max-height: 780px; 
-    margin-top: 80px;
-  }
-  
-  
-  .trainer-details-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .trainer-details-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-  }
-  
-  .trainer-input-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .trainer-profile {
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="date"],
-  textarea {
-    width: 93%;
-    padding: 10px;
-    background: #333;
-    border: 1px solid #666;
-    color: white;
-  }
-  
-  input[type="text"][readonly],
-  input[type="password"][readonly],
-  input[type="email"][readonly],
-  input[type="date"][readonly],
-  textarea[readonly] {
-    background: #444;
-    border: 1px solid #555;
-  }
-  
-  .trainer-details-trainees ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .trainer-details-trainees li {
-    border: 1px solid #555;
-    padding: 10px;
-    margin: 10px 0;
-  }
-  
-  .trainer-action-button {
-    background: grey;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .trainer-action-button:hover {
-    background: #444;
-  }
-  
-  .trainer-table {
-    width: 95%;
-    border-collapse: collapse;
-    background-color: #222;
-    margin: 20px 0;
-  }
-  
-  .trainer-table thead {
-    background-color: #181818;
-    color: white;
-  }
-  
-  .trainer-table tbody {
-    background-color: #252323;
-    color: white;
-  }
-  /* 
-  .trainer-table tbody tr:nth-child(odd) {
-    background-color: #2b2727;
-  } */
-  
-  .trainer-table th,
-  .trainer-table td {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .trainer-table, .trainer-table th, .trainer-table td {
-    border: 1px solid #898787;
-  }
-  
+/* Container styles */
+ .trainer-details-box {
+   display: flex;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: auto;
+  width: 100%;
+  height: 600px;
+  margin-top: auto; 
+}
+
+.trainer-profile {
+  font-weight: bold;
+}
+
+.trainer-details {
+  flex: 1;
+  padding-right: 20px;
+  margin-left: 40px;
+  background: white;
+  margin-top: 20px;
+  height: 450px;
+}
+.trainer-details-form {
+  flex: 1;
+  padding-right: 20px;
+  margin-left: 60px;
+  background: white;
+  margin-top: 50px;
+  height: 400px;
+}
+
+.trainer-details-trainees {
+  flex: 1;
+  margin-left: 20px; 
+  margin-top: 50px;
+}
+
+.trainerProfile-heading{
+  color:#000;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.trainees-label {
+  color:#000;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+}
+
+.input-class {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #666;
+  color: rgb(27, 26, 26);
+  background-color: #f0f0f0;
+}
+
+.input-class[readonly] {
+  background: #444;
+  border: 1px solid #555;
+}
+
+ .trainer-table {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+.trainer-table thead th {
+  text-align: left;
+  padding: 8px;
+  font-weight: bold;
+  background-color: #e0dcdc;
+}
+
+.trainer-table tbody tr {
+  border: 1px solid #ddd;
+}
+
+.trainer-table tbody td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+} 
+
+
+.trainer-action-button {
+  background: grey;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.trainer-action-button:hover {
+  background: #444;
+}

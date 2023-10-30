@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 200cqh;
+    height: 150vh;
+    width: 300cqh;
   }
   
   .traineeRegistration-heading {
@@ -16,6 +16,7 @@
     text-align: center;
     padding-bottom: 10px;
     color: black;
+    margin-top: auto;
   }
   
   .registration-container {

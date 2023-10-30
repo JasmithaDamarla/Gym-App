@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
+import { 
+  Button, 
+  Container, 
+  TextField, 
+  Typography 
+} from '@mui/material';
 import '../component-styles/ChangePassword.css';
-
+import { useLocation } from 'react-router-dom';
 
 const ChangePassword: React.FC = () => {
-  // Define state to manage form data
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     userName: '',
     oldPassword: '',
     newPassword: '',
     newPasswordConfirmation: '',
-  });
+  };
+  const location = useLocation();
+  const [userName,setUserName] = useState(location.state.userName);
 
-  // Define a state for handling form submission status
+  const [formData, setFormData] = useState(initialFormData);
   const [submissionStatus, setSubmissionStatus] = useState({
     success: false,
     error: '',
   });
 
-  // Event handler to capture user input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Function to handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     fetch('http://localhost:4001/main/user/updatePassword', {
@@ -39,80 +41,96 @@ const ChangePassword: React.FC = () => {
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
-        }
-        else{
+        } else {
           setSubmissionStatus({ success: true, error: '' });
-          console.log("Updated successfully");
+          console.log('Updated successfully');
         }
       })
       .catch((error) => {
-        setSubmissionStatus(error);
+        setSubmissionStatus({ success: false, error: error.message });
       });
   };
 
+  const handleReset = () => {
+    setFormData(initialFormData);
+  };
+
   return (
-    <div className="change-password-box">
-      <h1 className="change-password-heading">Change Password</h1>
-      <form className="change-password-form" onSubmit={handleSubmit}>
-        <div className="change-password-field">
-          <label htmlFor="changepassword-username">Username:</label>
-          <input
+    <Container maxWidth="sm">
+      <div className="change-password-box">
+        <Typography variant="h4" className="change-password-heading">
+          Change Password
+        </Typography>
+        <form className="change-password-form" onSubmit={handleSubmit}>
+          <TextField
+            label="Username"
             type="text"
-            id="changepassword-username"
             name="userName"
             required
             className="changepassword-input"
-            value={formData.userName}
+            value={userName}
             onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+            InputLabelProps={{ style: { color: 'black' } }}
           />
-        </div>
-        <div className="change-password-field">
-          <label htmlFor="changepassword-oldPassword">Old Password:</label>
-          <input
+          <TextField
+            label="Old Password"
             type="password"
-            id="changepassword-oldPassword"
             name="oldPassword"
             required
             className="changepassword-input"
             value={formData.oldPassword}
             onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+            InputLabelProps={{ style: { color: 'black' } }}
           />
-        </div>
-        <div className="change-password-field">
-          <label htmlFor="changepassword-newPassword">New Password:</label>
-          <input
+          <TextField
+            label="New Password"
             type="password"
-            id="changepassword-newPassword"
             name="newPassword"
             required
             className="changepassword-input"
             value={formData.newPassword}
             onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+            InputLabelProps={{ style: { color: 'black' } }}
           />
-        </div>
-        <div className="change-password-field">
-          <label htmlFor="changepassword-newPasswordConfirmation">New Password Confirmation:</label>
-          <input
+          <TextField
+            label="New Password Confirmation"
             type="password"
-            id="changepassword-newPasswordConfirmation"
             name="newPasswordConfirmation"
             required
             className="changepassword-input"
             value={formData.newPasswordConfirmation}
             onChange={handleInputChange}
+            fullWidth
+            inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+            InputLabelProps={{ style: { color: 'black' } }}
+            margin="normal"
           />
-        </div>
-        <div className="button-container">
-          <button className="changepassword-button" type="submit">
-            Change Password
-          </button>
-        </div>
-      </form>
-      {submissionStatus.success && (
-        <div className="submission-success">Password updated successfully</div>
-      )}
-      {submissionStatus.error && <div className="submission-error">{submissionStatus.error}</div>}
-    </div>
+          <div className="button-container">
+            <Button type="submit" variant="contained" color="primary">
+              Change Password
+            </Button>
+            <Button type="button" onClick={handleReset} variant="contained" color="secondary">
+              Reset
+            </Button>
+          </div>
+        </form>
+        {submissionStatus.success && (
+          <div className="submission-success">Password updated successfully</div>
+        )}
+        {submissionStatus.error && (
+          <div className="submission-error">{submissionStatus.error}</div>
+        )}
+      </div>
+    </Container>
   );
 };
 

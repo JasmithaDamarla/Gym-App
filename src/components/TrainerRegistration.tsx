@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
-import '../component-styles/Registration.css';
 import { Link } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  Paper,
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid,
+} from '@mui/material';
+// import '../component-styles/TrainerRegistration.css';
 
 const TrainerRegistration: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email:'',
+    email: '',
     specialization: 'ZUMBA',
   });
 
   const initialFormData = {
     firstName: '',
     lastName: '',
-    email:'',
+    email: '',
     specialization: 'ZUMBA',
   };
 
@@ -27,7 +39,7 @@ const TrainerRegistration: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    const allFieldsFilled = Object.values(formData).map((value) => value.trim() !== '');
+    const allFieldsFilled = Object.values(formData).every((value) => value.trim() !== '');
     setIsSubmitDisabled(!allFieldsFilled);
   };
 
@@ -36,10 +48,11 @@ const TrainerRegistration: React.FC = () => {
     const trainerData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      email: formData.email, 
+      email: formData.email,
       specialization: formData.specialization,
     };
     setIsSubmitDisabled(true);
+
     fetch('http://localhost:4001/main/trainer/trainerRegistration', {
       method: 'POST',
       headers: {
@@ -66,6 +79,7 @@ const TrainerRegistration: React.FC = () => {
         console.error('Error:', error.message);
       });
   };
+
   const handleReset = () => {
     setFormData(initialFormData);
     setShowResponse(false);
@@ -73,91 +87,123 @@ const TrainerRegistration: React.FC = () => {
       userName: '',
       password: '',
     });
-  setIsSubmitDisabled(true);
+    setIsSubmitDisabled(true);
   };
-  
-  
+
   return (
-    <div className="center-box">
-      <div className="registration-container">
-        <h1 className='trainerRegistration-heading'>Trainer Registration</h1>
-        <form onSubmit={handleFormSubmit} className="registration-form">
-          <div className="register-form-group">
-            <label htmlFor="firstName">First Name *</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName" className='register-input'
-              value={formData.firstName}
-              onChange={handleInputChange}
-              placeholder="Enter First Name"
-              required
-            />
-          </div>
+    <Container maxWidth="lg">
+      <Paper elevation={20} style={{ padding: '20px', margin: '20px auto'}}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} sm={6}>
+            <div className="login-image-container">
+              <img
+                src="src\images\gym-register.PNG"
+                alt="Login Image"
+                className="login-image"
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', fontFamily: 'Times New Roman' }}>
+              Trainer Registration
+            </Typography>
+            <form onSubmit={handleFormSubmit}>
+              <TextField
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
+              />
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
+              />
+              <FormControl variant="outlined" fullWidth margin="normal">
+                <InputLabel id="specialization-label">Specialization *</InputLabel>
+                <Select
+                  labelId="specialization-label"
+                  label="Specialization *"
+                  name="specialization"
+                  value={formData.specialization}
+                  onChange={handleInputChange as any}
+                  required
+                >
+                  <MenuItem value="">Select Specialization</MenuItem>
+                  <MenuItem value="ZUMBA">ZUMBA</MenuItem>
+                  <MenuItem value="FITNESS">FITNESS</MenuItem>
+                  <MenuItem value="YOGA">YOGA</MenuItem>
+                  <MenuItem value="STRETCHING">STRETCHING</MenuItem>
+                  <MenuItem value="RESISTANCE">RESISTANCE</MenuItem>
+                </Select>
+              </FormControl>
+              {showResponse && (
+                <div className="register-form-group">
+                  <InputLabel>Username</InputLabel>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="userName"
+                    value={response.userName}
+                    InputProps={{ readOnly: true }}
+                    inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                    InputLabelProps={{ style: { color: 'black' } }}
+                  />
+                </div>
+              )}
 
-          <div className="register-form-group">
-            <label htmlFor="lastName">Last Name *</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName" className='register-input'
-              value={formData.lastName}
-              onChange={handleInputChange}
-              placeholder="Enter Last Name"
-              required
-            />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="email">Email *</label>
-            <input
-              type="text"
-              id="email"
-              name="email" className='register-input'
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Enter your Email"
-              required
-            />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="specialization">Specialization *</label>
-            <select
-              id="specialization"
-              name="specialization"
-              value={formData.specialization}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Select Specialization</option>
-              <option value="ZUMBA">ZUMBA</option>
-              <option value="FITNESS">FITNESS</option>
-              <option value="YOGA">YOGA</option>
-              <option value="STRETCHING">STRETCHING</option>
-              <option value="RESISTANCE">RESISTANCE</option>
-            </select>
-          </div>
-
-          <div className="register-form-group">
-            <button type="submit" className='register-button' disabled={isSubmitDisabled}>Register</button>
-            <Link to='/trainerRegistration' onClick={handleReset}><button type="submit" className='reset-button'>Reset</button></Link>
-          </div>
-        </form>
-
-        {showResponse && (
-          <div className="register-response">
-            <h3>User Details</h3>
-            <p>
-              <strong>Username:</strong> {response.userName}
-            </p>
-            <p>
-              <strong>Password:</strong> {response.password}
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
+              {showResponse && (
+                <div className="register-form-group">
+                  <InputLabel>Password</InputLabel>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="password"
+                    value={response.password}
+                    InputProps={{ readOnly: true }}
+                    inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                    InputLabelProps={{ style: { color: 'black' } }}
+                  />
+                </div>
+              )}
+              <Button type="submit" variant="contained" style={{marginLeft:'20px', marginTop:'20px'}} color="primary" disabled={isSubmitDisabled} className='register-button'>
+                Register
+              </Button>
+              <Link to="/trainerRegistration" onClick={handleReset}>
+                <Button variant="contained" className='reset-button' style={{marginLeft:'20px', marginTop:'20px'}}>
+                  Reset
+                </Button>
+              </Link>
+            </form>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
   );
 };
 

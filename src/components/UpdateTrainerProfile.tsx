@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  TextField,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Button,
+} from '@mui/material';
 import '../component-styles/UpdateTrainerProfile.css';
 
 const UpdateTrainerProfile: React.FC = () => {
-
   const location = useLocation();
   const trainerData = location.state?.trainerData;
   if (!trainerData) {
@@ -12,38 +20,35 @@ const UpdateTrainerProfile: React.FC = () => {
   }
   console.log(trainerData);
 
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   userName:'',
-  //   isActive: false, 
-  // });
-
   const [formData, setFormData] = useState({
     userName: trainerData.username,
     firstName: trainerData.firstName,
     lastName: trainerData.lastName,
-    isActive: trainerData.isActive ? true : false,
+    isActive: trainerData.isActive ? 'Yes' : 'No',
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLInputElement>) => {
+  const [warningMessage, setWarningMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [successVisible, setSuccessVisible] = useState(false);
+  const [failureVisible, setFailureVisible] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const isActive = value === 'Yes';
-    setFormData({ ...formData, isActive });
+    setFormData({ ...formData, isActive: value });
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const updateData = {
-      userName: formData.userName, 
+      userName: formData.userName,
       firstName: formData.firstName,
       lastName: formData.lastName,
-      isActive: formData.isActive
+      isActive: formData.isActive === 'Yes',
     };
     fetch('http://localhost:4001/main/trainer/updateTrainerProfile', {
       method: 'PUT',
@@ -61,19 +66,56 @@ const UpdateTrainerProfile: React.FC = () => {
       })
       .then((data) => {
         console.log('Trainer profile updated successfully', data);
+        setFormData(data);
+        setSuccessMessage('Updated successfullyy..');
+        setWarningMessage('');
+
+        setSuccessVisible(true);
+        setTimeout(() => {
+          setSuccessVisible(false);
+        }, 3000);
+
+      //   fetch('http://localhost:4001/main/trainee/profile?userName=' + localStorage.getItem('userName'))
+      // .then((response) => {
+      //   if (!response.ok) {
+      //     throw new Error('Error fetching data');
+      //   }
+      //   return response.json();
+      // })
+      // .catch((error) => {
+      //   console.error('Error fetching trainer data:', error);
+      //   // localStorage.setItem('login','0');
+      //   window.location.href = '/notFound';
+      // });
+
+
       })
       .catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
+
+        setSuccessMessage('');
+        setWarningMessage('There is an error in page. reload it');
+
+        setFailureVisible(true);
+        setTimeout(() => {
+          setFailureVisible(false);
+        }, 3000);
       });
   };
 
   return (
-    <div className="update-trainer-box">
-      <h1 className="update-trainer-heading">Update Profile Form</h1>
+    <Container className="update-trainer-box">
+
+      <div className={`success-box ${successVisible ? 'show' : 'hide'}`}>{successMessage}</div>
+      <div className={`failure-box ${failureVisible ? 'show' : 'hide'}`}>{warningMessage}</div>
+
+      <Typography variant="h4" className="update-trainer">
+        <p className="update-trainer-heading">Update Profile</p>
+      </Typography>
       <form onSubmit={handleFormSubmit} className="update-trainer-form">
         <div className="update-trainer-field">
           <label htmlFor="firstName">First Name:</label>
-          <input
+          <TextField
             type="text"
             id="firstName"
             name="firstName"
@@ -84,7 +126,7 @@ const UpdateTrainerProfile: React.FC = () => {
         </div>
         <div className="update-trainer-field">
           <label htmlFor="lastName">Last Name:</label>
-          <input
+          <TextField
             type="text"
             id="lastName"
             name="lastName"
@@ -95,82 +137,45 @@ const UpdateTrainerProfile: React.FC = () => {
         </div>
         <div className="update-trainer-field">
           <label htmlFor="userName">User Name:</label>
-          <input
+          <TextField
             type="text"
             id="userName"
             name="userName"
             className="update-trainer-input"
             value={formData.userName}
-            onChange={handleInputChange}
+            InputProps={{
+              readOnly: true,
+            }}
+            
           />
         </div>
         <div className="update-trainer-field">
           <label>Is Active:</label>
-          <div className="update-trainer-radio">
-            <input
-              type="radio"
-              id="activeYes"
-              name="isActive"
+          <RadioGroup
+            name="isActive"
+            value={formData.isActive}
+            onChange={handleRadioChange}
+          >
+            <FormControlLabel
               value="Yes"
-              checked={formData.isActive === true}
-              onChange={handleRadioChange}
-              className="update-trainer-input"
+              control={<Radio />}
+              label="Yes"
             />
-            <label htmlFor="activeYes">Yes</label>
-            <input
-              type="radio"
-              id="activeNo"
-              name="isActive"
+            <FormControlLabel
               value="No"
-              checked={formData.isActive === false}
-              onChange={handleRadioChange}
-              className="update-trainer-input"
+              control={<Radio />}
+              label="No"
             />
-            <label htmlFor="activeNo">No</label>
-          </div>
+          </RadioGroup>
         </div>
         <div className="button-container">
-          <button type="submit" className="action-button">
-            Send
-          </button>
+          <Button type="submit" variant="contained" color="primary" className="action-button">
+            Save Changes
+          </Button>
         </div>
       </form>
-    </div>
+    </Container>
   );
 };
 
 export default UpdateTrainerProfile;
-
-// import React from 'react';
-
-// const UpdateTrainerProfile: React.FC = () => {
-//   return (
-//     <div className="update-trainer-box">
-//       <h1 className="update-trainer-heading">Update Profile Form</h1>
-//       <form className="update-trainer-form">
-//         <div className="update-trainer-field">
-//           <label htmlFor="firstName">First Name:</label>
-//           <input type="text" id="firstName" className="update-trainer-input" />
-//         </div>
-//         <div className="update-trainer-field">
-//           <label htmlFor="lastName">Last Name:</label>
-//           <input type="text" id="lastName" className="update-trainer-input" />
-//         </div>
-//         <div className="update-trainer-field">
-//           <label>Is Active:</label>
-//           <div className="update-trainer-radio">
-//             <input type="radio" id="activeYes" name="isActive" value="Yes" className="update-trainer-input" />
-//             <label htmlFor="activeYes">Yes</label>
-//             <input type="radio" id="activeNo" name="isActive" value="No" className="update-trainer-input" />
-//             <label htmlFor="activeNo">No</label>
-//           </div>
-//         </div>
-//         <div className="button-container">
-//           <button className="action-button">Send</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default UpdateTrainerProfile;

@@ -89,7 +89,7 @@
 /* Add this to your CSS file */
 
 .footer-container {
-  background-color: #131317;
+  background-color: #1c1b1c;
   color: #fff;
   padding: 20px;
   width: 100%;
@@ -136,10 +136,10 @@
 }
 
 .terms-page {
-  background-color: #deb9b9;
+  background-color: hsl(210, 100%, 99%);
   padding: 20px;
   color: red;
-  margin-top: 100px;
+  margin-top: 50px;
   border-radius: 5px;
   margin-bottom: 85px;
   margin-left: 30px;
@@ -162,12 +162,12 @@
 /* ContactUs.css */
 
 .contact-us-container {
-  background-color: #5f72dd;
-  color: #c2c2d5;
+  background-color: #a6b1ef;
+  color: #0f0f17;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
+  margin-top: 40px;
   margin-left: 30px;
   margin-right: 50px;
   margin-bottom: 20px;
@@ -181,18 +181,18 @@ h2 {
 .contact-list {
   list-style: none;
   padding: 0;
-  color: #c2c2d5;
+  color: #050508;
 }
 
 .contact-list li {
   margin-bottom: 10px;
   font-size: 18px;
-  color: #c2c2d5;
+  color: #17171f;
 }
 
 .contact-list a {
   text-decoration: none;
-  color: #c2c2d5;
+  color: #0b0b0e;
   display: flex;
   align-items: center;
 
@@ -204,7 +204,5 @@ h2 {
 }
 
 .contact-list a:hover{
-  color: darksalmon;
+  color: rgb(11, 93, 137);
 }
-
-

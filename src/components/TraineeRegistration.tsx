@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../component-styles/Registration.css';
+import {
+  Container,
+  Typography,
+  Paper,
+  TextField,
+  Button,
+  InputLabel,
+  TextareaAutosize,
+  Grid
+} from '@mui/material';
 
 const TraineeRegistrationForm: React.FC = () => {
   const initialFormData = {
@@ -30,7 +39,7 @@ const TraineeRegistrationForm: React.FC = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    const allFieldsFilled = Object.values(formData).map((value) => value.trim() !== '');
+    const allFieldsFilled = Object.values(formData).every((value) => value.trim() !== '');
     setIsSubmitDisabled(!allFieldsFilled);
   };
 
@@ -43,8 +52,8 @@ const TraineeRegistrationForm: React.FC = () => {
       dob: formData.dateOfBirth,
       address: formData.address,
     };
-    console.log("UserName : " + localStorage.getItem('userName'));
     setIsSubmitDisabled(true);
+
     fetch('http://localhost:4001/main/trainee/traineeRegistration', {
       method: 'POST',
       headers: {
@@ -52,302 +61,161 @@ const TraineeRegistrationForm: React.FC = () => {
       },
       body: JSON.stringify(traineeData),
     })
-    .then((response) => {
-      if (response.status === 201) {
-        return response.json();
-      } else if (response.status === 400) {
-        return response.json().then((errorData) => {
-          throw new Error(errorData.message);
-        });
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    })
-    .then((data) => {
-      setResponse(data);
-      setShowResponse(true);
-      
-    })
-    .catch((error) => {
-      console.error('There was a problem with the fetch operation:', error);
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        } else if (response.status === 400) {
+          return response.json().then((errorData) => {
+            throw new Error(errorData.message);
+          });
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .then((data) => {
+        setResponse(data);
+        setShowResponse(true);
+      })
+      .catch((error) => {
+        console.error('There was a problem with the fetch operation:', error);
       });
-    };
-      const handleReset = () => {
-        setFormData(initialFormData);
-        setShowResponse(false);
-        setResponse({
-          userName: '',
-          password: '',
-        });
-      setIsSubmitDisabled(true);
+  };
+
+  const handleReset = () => {
+    setFormData(initialFormData);
+    setShowResponse(false);
+    setResponse({
+      userName: '',
+      password: '',
+    });
+    setIsSubmitDisabled(true);
   };
 
   return (
-    <div className="center-box">
-      <div className="registration-container">
-        <h1 className="traineeRegistration-heading">Trainee Registration</h1>
-        <form onSubmit={handleFormSubmit} className="registration-form">
-          <div className="register-form-group">
-            <label htmlFor="firstName">First Name *</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              className='register-input'
-              value={formData.firstName}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter First Name"
+    <Container maxWidth="lg"> {/* Increase the maxWidth */}
+      <Paper elevation={3} style={{ padding: '20px', margin: '20px auto' }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <img
+              src="src\images\gym-register.PNG"
+              alt="Registration Image"
+              style={{ width: '100%', height: '95%' }}
             />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="lastName">Last Name *</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              className='register-input'
-              value={formData.lastName}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter Last Name"
-            />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="email">Email *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className='register-input'
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              placeholder="Enter your Email"
-            />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="dateOfBirth">Date of Birth</label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              className='register-input'
-              value={formData.dateOfBirth}
-              onChange={handleInputChange}
-              placeholder="Select Date of Birth"
-            />
-          </div>
-
-          <div className="register-form-group">
-            <label htmlFor="address">Address</label>
-            <textarea
-              id="address"
-              name="address"
-              className='register-input'
-              value={formData.address}
-              onChange={handleInputChange}
-              placeholder="Enter Address"
-            ></textarea>
-          </div>
-
-          {showResponse && (
-            <div className="register-form-group">
-              <label htmlFor="userName">Username</label>
-              <input
-                type="text"
-                id="userName"
-                name="userName"
-                className="register-input"
-                value={response.userName}
-                readOnly
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h4" align="center" gutterBottom style={{ fontWeight: 'bold', fontFamily: 'Times New Roman' }}>
+              Trainee Registration
+            </Typography>
+            <form onSubmit={handleFormSubmit}>
+              <TextField
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
               />
-            </div>
-          )}
 
-          {showResponse && (
-            <div className="register-form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="register-input"
-                value={response.password}
-                readOnly
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
               />
-            </div>
-          )}
 
-          <div className="register-form-group">
-            <button type="submit" className='register-button' disabled={isSubmitDisabled}>Register</button>
-            <Link to='/traineeRegistration' onClick={handleReset}><button type="submit" className='reset-button'>Reset</button></Link>
-          </div>
-        </form>
+              <TextField
+                label="Email"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange as any}
+                required
+                inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                InputLabelProps={{ style: { color: 'black' } }}
+              />
 
-        {/* {showResponse && (
-          <div className="register-response">
-            <h3>User Details</h3>
-            <p>
-              <strong>Username:</strong> {response.userName}
-            </p>
-            <p>
-              <strong>Password:</strong> {response.password}
-            </p>
-          </div>
-        )} */}
-      </div>
-    </div>
-);
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <InputLabel style={{ flex: 0.25 }}>Date of Birth</InputLabel>
+                <TextField
+                  // label="DD-MM-YYYY"
+                  variant="outlined"
+                  margin="normal"
+                  name="dateOfBirth"
+                  type="date"
+                  value={formData.dateOfBirth}
+                  onChange={handleInputChange as any}
+                  inputProps={{ style: { backgroundColor: 'GrayText', color: 'black' } }}
+                  InputLabelProps={{ style: { color: 'black' } }}
+                />
+              </div>
+
+              <TextareaAutosize
+                minRows={3}
+                maxRows={5}
+                aria-label="Address"
+                placeholder="Address"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange as any}
+                style={{ width: '95%', marginBottom: '16px', backgroundColor: '#F7F7F7', color: '#333' }}
+              />
+
+              {showResponse && (
+                <div className="register-form-group">
+                  <InputLabel>Username</InputLabel>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="userName"
+                    value={response.userName}
+                    InputProps={{ readOnly: true }}
+                    inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                    InputLabelProps={{ style: { color: 'black' } }}
+                  />
+                </div>
+              )}
+
+              {showResponse && (
+                <div className="register-form-group">
+                  <InputLabel>Password</InputLabel>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="password"
+                    value={response.password}
+                    InputProps={{ readOnly: true }}
+                    inputProps={{ style: { backgroundColor: 'whitesmoke', color: 'black' } }}
+                    InputLabelProps={{ style: { color: 'black' } }}
+                  />
+                </div>
+              )}
+
+              <div className="register-form-group">
+                <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
+                  Register
+                </Button>
+                <Link to="/traineeRegistration" onClick={handleReset}>
+                  <Button variant="contained" style={{marginLeft:'20px'}} onClick={handleReset}>Reset</Button>
+                </Link>
+              </div>
+            </form>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
+  );
 };
 
 export default TraineeRegistrationForm;
-
-
-// import React, { useState } from 'react';
-
-// const TraineeRegistrationForm: React.FC = () => {
-//   const [formData, setFormData] = useState({
-//     firstName: '',
-//     lastName: '',
-//     email: '', // Add email to match TraineeRegistrationDTO
-//     dateOfBirth: '',
-//     address: '',
-//   });
-
-//   const [showResponse, setShowResponse] = useState(false);
-
-//   const [response, setResponse] = useState({
-//     userName: '', // Change "username" to "userName" to match DetailsDTO
-//     password: '',
-//   });
-
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleFormSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     const traineeData = {
-//       firstName: formData.firstName,
-//       lastName: formData.lastName,
-//       email: formData.email,
-//       dob: formData.dateOfBirth,
-//       address: formData.address,
-//     };
-
-//     fetch('http://localhost:4001/main/trainee/traineeRegistration', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(traineeData),
-//     })
-//       .then((response) => {
-//         if (response.status === 201) {
-//           return response.json();
-//         } else if (response.status === 400) {
-//           return response.json().then((errorData) => {
-//             throw new Error(errorData.message); 
-//           });
-//         } else {
-//           throw new Error('Network response was not ok');
-//         }
-//       })
-//       .then((data) => {
-//         setResponse(data);
-//         setShowResponse(true);
-//       })
-//       .catch((error) => {
-//         console.error('There was a problem with the fetch operation:', error);
-//       });
-//   };
-
-//   return (
-//     <div className="center-box">
-//       <div className="registration-container">
-//         <h1 className="traineeRegistration-heading">Trainee Registration</h1>
-//         <form onSubmit={handleFormSubmit} className="registration-form">
-//         <div className="register-form-group">
-//              <label htmlFor="firstName">First Name *</label>
-//              <input
-//               type="text"
-//               id="firstName"
-//               name="firstName" className='register-input'
-//               value={formData.firstName}
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-
-//           <div className="register-form-group">
-//             <label htmlFor="lastName">Last Name *</label>
-//             <input
-//               type="text"
-//               id="lastName"
-//               name="lastName" className='register-input'
-//               value={formData.lastName}
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-
-//           <div className="register-form-group">
-//             <label htmlFor="lastName">Email *</label>
-//             <input
-//               type="email"
-//               id="email"
-//               name="email" className='register-input'
-//               value={formData.email}
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-
-//           <div className="register-form-group">
-//             <label htmlFor="dateOfBirth">DOB</label>
-//             <input
-//               type="date"
-//               id="dateOfBirth"
-//               name="dateOfBirth" className='register-input'
-//               value={formData.dateOfBirth}
-//               onChange={handleInputChange}
-//             />
-//           </div>
-
-//           <div className="register-form-group">
-//             <label htmlFor="address">Address</label>
-//             <textarea
-//               id="address"
-//               name="address" className='register-input'
-//               value={formData.address}
-//               onChange={handleInputChange}
-//             ></textarea>
-//           </div>
-
-//           <div className="register-form-group">
-//             <button type="submit" className='register-button'>Register</button>
-//           </div>
-//         </form>
-
-//         {showResponse && (
-//           <div className="register-response">
-//             <h3>User Details</h3>
-//             <p>
-//               <strong>Username:</strong> {response.userName}
-//             </p>
-//             <p>
-//               <strong>Password:</strong> {response.password}
-//             </p>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default TraineeRegistrationForm;

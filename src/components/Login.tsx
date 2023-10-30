@@ -1,172 +1,213 @@
-import { useState } from 'react';
-import '../component-styles/Login.css';
+import React, { useState } from 'react';
 import Header from './HomePage';
+import { TextField, Button, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import '../component-styles/Login.css';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    userType:'trainee',
+    userType: 'trainee',
     captcha: '',
   });
   const [isLoggedin, setIsLoggedin] = useState(false);
-  // const [loggedInUsername, setLoggedInUsername] = useState('');
-  // const handleLogout = () => {
-  //   setIsLoggedin(false);
-  // };
-
   const [systemGeneratedCaptcha, setSystemGeneratedCaptcha] = useState(generateCaptcha());
+  const [warningMessage, setWarningMessage] = useState('');
 
   function generateCaptcha() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const captcha = Array.from({ length: 6 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+    const captcha = Array.from({ length: 6 }, () =>
+      characters.charAt(Math.floor(Math.random() * characters.length))
+    ).join('');
     return captcha;
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
+
+  const handleUserTypeChange = (event: SelectChangeEvent<string>) => {
+    setFormData({ ...formData, userType: event.target.value });
+  };
+
   const reloadCaptcha = () => {
     setSystemGeneratedCaptcha(generateCaptcha());
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const { username, password,userType,captcha } = formData;
-    // const history = useHistory();
+    const { username, password, userType, captcha } = formData;
     const requestData = {
       userName: username,
       password: password,
     };
-    
-    if (username.length > 3 && password.length >= 8 && captcha === systemGeneratedCaptcha) {
-      console.log(formData);
-      fetch('http://localhost:4001/main/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log('Logged in successfully');
-            // setLoggedInUsername(username); 
-            localStorage.setItem('userName',username);
-            // setIsLoggedin(true);
-            // history.push('/userHome');
-            setIsLoggedin(true);
-            localStorage.setItem('login','1');
-            console.log(userType);
-            if (userType === 'trainee') {
-              console.log('trainee');
-              window.location.href = '/traineeProfile';
-            } else if (userType === 'trainer') {
-              console.log('trainer');
-              window.location.href = '/trainerProfile';
-            }
-          } else {
-            // setIsLoggedin(true);
-            // localStorage.setItem('login','0');
-            console.log('Login failed');
-            
-          }
+
+    if (username.length > 3 && password.length >= 8) {
+      if (captcha === systemGeneratedCaptcha) {
+        console.log(formData);
+        fetch('http://localhost:4001/main/user/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
         })
-        .catch((error) => {
-          console.error('Error while logging in:', error);
-        });
+          .then((response) => {
+            if (response.ok) {
+              console.log('Logged in successfully');
+              localStorage.setItem('userName', username);
+              localStorage.setItem('userType',userType);
+              setIsLoggedin(true);
+              localStorage.setItem('login', '1');
+              if (userType === 'trainee') {
+                window.location.href = '/traineeProfile';
+              } else if (userType === 'trainer') {
+                window.location.href = '/trainerProfile';
+              } 
+            } else {
+              console.log('Login failed');
+              setWarningMessage('Invalid username or password.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error while logging in:', error);
+            setWarningMessage('There is an error occured. Please try again');
+          });
+        } else {
+          console.log('Captcha did not matched');
+          setWarningMessage('Captcha not matched. Please try again.');
+        }
     } else {
       console.log('Form data is invalid');
+      setWarningMessage('Did not meet credentials requirement.Please check it again');
     }
   };
 
   return (
     <div className="center-box">
-
       {isLoggedin ? (
-              // <LoginHeader username={loggedInUsername} onLogout={handleLogout} />
-              <Header/>
-            ) : (
-
-      <div className="login-container">
-        <h1 className="login-heading">LOGIN</h1>
-        <form onSubmit={handleFormSubmit} className="login-form">
-          <div className="login-form-group">
-            <label className="login-label" htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username" 
-              className='login-input'
-              value={formData.username}
-              onChange={handleInputChange}
-              required
+        <Header />
+      ) : (
+        <div className="login-container">
+          <div className="login-image-container">
+            <img
+              src="src\images\gym-login.PNG"
+              alt="Login Image"
+              className="login-image"
             />
           </div>
+          <div className="login-form-container">
+            <h1 className="login-heading">LOGIN</h1>
+            {/* <p> */}
+              {warningMessage && (
+                <div className="warning-message">
+                  {warningMessage}
+                </div>
+              )}
+              {/* </p> */}
+            <form onSubmit={handleFormSubmit} className="login-form">
+              <div className="login-form-group">
+                <label className="login-label" htmlFor="username">
+                  Username
+                </label>
+                <TextField
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="login-input"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  required
+                  inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black' } }}
+                  InputLabelProps={{ style: { color: 'black' } }}
+                />
+              </div>
+              <div className="login-form-group">
+                <label className="login-label" htmlFor="password">
+                  Password
+                </label>
+                <TextField
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="login-input"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                  inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black' } }}
+                  InputLabelProps={{ style: { color: 'black' } }}
+                />
+              </div>
+              <div className="login-form-group">
+                <label className="login-label" htmlFor="userType">
+                  User Type
+                </label>
+                <Select
+                  id="userType"
+                  name="userType"
+                  className="login-input"
+                  value={formData.userType}
+                  onChange={handleUserTypeChange}
+                  required
+                >
+                  <MenuItem value="trainee">Trainee</MenuItem>
+                  <MenuItem value="trainer">Trainer</MenuItem>
+                </Select>
+              </div>
+              <div className="login-form-group">
+                <div className="captcha-box" style={{ display: 'flex', alignItems: 'center' }}>
+                  <TextField
+                    type="text"
+                    variant="standard"
+                    className="login-captcha-input"
+                    value={systemGeneratedCaptcha}
+                    InputProps={{
+                      readOnly: true,
+                      style: { backgroundColor: 'whitesmoke', color: 'black',alignItems: 'center' },
+                    }}
+                    inputProps={{ style: { backgroundColor: 'whitesmoke',color:'black'} }}
+                    InputLabelProps={{ style: { color: 'black' } }}
+                  />
+                  <Button
+                    type="button"
+                    onClick={reloadCaptcha}
+                    className="login-reload-button"
+                    style={{
+                      backgroundColor: "#242628",
+                      color: "#bdacac",
+                      border: "none",
+                      width: "40px",
+                      height: "40px",
+                      cursor: "pointer",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    &#8635; {/* Reload symbol */}
+                  </Button>
+                </div>
 
-          <div className="login-form-group">
-            <label className="login-label" htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className='login-input'
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
+                <label className="login-label" htmlFor="captcha">
+                  Enter CAPTCHA
+                </label>
+                <TextField
+                  type="text"
+                  id="captcha"
+                  name="captcha"
+                  className="login-input"
+                  value={formData.captcha}
+                  onChange={handleInputChange}
+                  required
+                  inputProps={{ style: { backgroundColor: 'whitesmoke' ,color:'black'} }}
+                  InputLabelProps={{ style: { color: 'black' } }}
+                />
+              </div>
+              <Button className="login-button" type="submit">
+                Login
+              </Button>
+            </form>
           </div>
-              
-          <div className="login-form-group">
-            <label className="login-label" htmlFor="userType">User Type</label>
-            <select
-              id="userType"
-              name="userType"
-              className="login-input"
-              value={formData.userType}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="trainee">Trainee</option>
-              <option value="trainer">Trainer</option>
-            </select>
-          </div>
-    
-
-          <div className="login-form-group">
-            <div className="captcha-box">
-              <input
-                type="text"
-                className="login-captcha-input"
-                value={systemGeneratedCaptcha}
-                readOnly
-              />
-              <button
-                type="button"
-                onClick={reloadCaptcha}
-                className="login-reload-button"
-              >
-                {/* symbol for reload */}
-                &#8635; 
-              </button>
-            </div>
-            <label className="login-label" htmlFor="captcha">Enter CAPTCHA</label>
-            <input
-              type="text"
-              id="captcha"
-              name="captcha"
-              className='login-input'
-              value={formData.captcha}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <button className="login-button" type="submit">Login</button>
-        </form>
-      </div>
+        </div>
       )}
     </div>
   );

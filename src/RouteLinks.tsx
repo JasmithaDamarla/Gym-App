@@ -11,9 +11,9 @@ import TrainerRegistration from "./components/TrainerRegistration";
 import TrainerTrainings from "./components/TrainerTrainingsLog";
 import UpdateTraineeProfile from "./components/UpdateTraineeProfile";
 import UpdateTrainerProfile from "./components/UpdateTrainerProfile";
-import UserHome from "./components/UserHome";
 import NotFoundPage from "./components/NotFoundPage";
 import { AboutUs, ContactUs, TermsConditions } from "./components/HomePage";
+import DeleteTrainee from "./components/DeleteTrainee";
 
 export function RouteLinks() {
     return (
@@ -23,7 +23,6 @@ export function RouteLinks() {
             <Route path="/traineeRegistration" Component={TraineeRegistration} />
             <Route path="/trainerRegistration" Component={TrainerRegistration} />
             <Route path="/login" Component={Login} />
-            <Route path="/userHome" Component={UserHome}/>
             <Route path="/traineeProfile" Component={TraineeProfile}/>
             <Route path="/trainerProfile" Component={TrainerProfile}/>
             <Route path="/changePassword" Component={ChangePassword}/>
@@ -36,6 +35,7 @@ export function RouteLinks() {
             <Route path="/aboutUs" Component={AboutUs}/>
             <Route path="/termsAndConditions" Component={TermsConditions}/>
             <Route path="/contactUs" Component={ContactUs}/>
+            <Route path="/deleteTrainee" Component={DeleteTrainee}/>
           </Routes>
       </div>
     );

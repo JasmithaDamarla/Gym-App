@@ -1,125 +1,84 @@
 .trainer-trainings-form {
-    width: 700px;
-    margin: 0 auto;
-    background: #000;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: auto;
-    max-height: 750px;
-    margin-left: 270px;
-    margin-top: 80px;
-  }
-  
-  .trainer-trainings-heading {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: white;
-  }
-  
-  .trainer-trainings-form .trainer-trainings-search-section {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    flex-direction: column;
-  }
-  
-  .trainer-trainings-form .trainer-trainings-search-field {
-    margin-right: 20px;
-  }
-  
-  .trainer-trainings-form .trainer-trainings-search-field label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .trainer-trainings-form .trainer-trainings-search-field input,
-  .trainer-trainings-form .trainer-trainings-search-field select {
-    width: 200px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #333;
-    color: white;
-    margin-right: 10px;
-  }
-  
-  .trainer-trainings-form .trainer-trainings-search-field select {
-    width: 210px;
-  }
-  
-  
-  .trainer-trainings-search-button {
-    background-color: rgb(120, 120, 125);
-    color: white;
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    width:200px;
-    cursor: pointer;
-  }
-  
-  .trainer-trainings-search-button:hover {
-    background: #444;
-  }
+  padding: 20px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
 
-  .trainer-trainings-list {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    max-height: 300px;
-    overflow: auto;
-  }
+.trainer-trainings-heading {
+  color: black;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+}
+
+.trainings-list-heading {
+  color: black;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.trainer-trainings-search-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.trainer-trainings-search-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.trainer-trainings-log-list {
+  margin-top: 20px;
+}
+
+.trainer-trainings-log-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trainer-trainings-log-table th,
+.trainer-trainings-log-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.trainer-trainings-log-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.trainer-trainings-log-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+
+table {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+table thead th {
+  /* border: 1px solid #959494; */
+  text-align: left;
+  padding: 8px;
+  font-weight: bold; 
+  background-color: #c8c1c1;
   
-  .trainer-trainings-list h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .trainer-trainings-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .trainer-trainings-list li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-  }
-  
-  /* Styles for TrainerTrainingsLog component
-  .trainer-trainings-log-list {
-    background: #171616;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    max-height: 400px;
-    overflow: auto;
-  } */
-  
-  .trainer-trainings-log-table {
-    width: 97%;
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-  
-  .trainer-trainings-log-table th,
-  .trainer-trainings-log-table td {
-    border: 1px solid #999797;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .trainer-trainings-log-table th {
-    background: #232121;
-    color: white;
-  }
-  
-  .trainer-trainings-log-table td {
-    background: #484646;
-  }
-  
+}
+
+table tbody tr {
+  border: 1px solid #ddd;
+}
+
+table tbody td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}

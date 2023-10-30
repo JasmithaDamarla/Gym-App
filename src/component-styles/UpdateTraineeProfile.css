@@ -1,66 +1,99 @@
+/* UpdateTraineeProfile.css */
 .update-trainee-box {
-    width: 700px;
-    margin-left: 250px;
-    background: #000;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: auto;
-    max-height: 750px;
-    margin-top: 80px;
-  }
-  
-  .update-trainee-heading {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: white;
-  }
-  
-  .update-trainee-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .update-trainee-field {
-    margin-bottom: 10px;
-  }
-  
-  .update-trainee-field label {
-    color: white;
-  }
-  
-  .update-trainee-field input[type="text"],
-  .update-trainee-field input[type="radio"],
-  .update-trainee-field input[type="checkbox"] {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 14px;
-    color: #bcb6b6;
-  }
-  
-  .update-trainee-field input[type="radio"],
-  .update-trainee-field input[type="checkbox"] {
-    width: auto;
-    margin-right: 10px;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .action-button {
-    background-color: rgb(120, 120, 125);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .action-button:hover {
-    background: #444;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 300px;
+  background-color: #ffffff;
+  height: auto;
+}
+
+.update-trainee-heading {
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.update-trainee-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-trainee-field {
+  margin-bottom: 20px;
+  color: black;
+  margin-right: 30px;
+  font-weight: bold;
+  height: 50px;
+}
+
+.update-trainee-field input[type="text"],
+.update-trainee-field input[type="radio"],
+.update-trainee-field input[type="checkbox"] {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  height: 40px;
+  color: black;
+}
+
+.update-trainee-field input[type="radio"],
+.update-trainee-field input[type="checkbox"] {
+  width: auto;
+  height: auto;
+}
+
+.update-trainee-list-heading {
+  display: flex;
+  align-items: center;
+  margin-top: 35px;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+
+.success-box {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: none;
+}
+
+.failure-box {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: none;
+}
+
+.show {
+  display: block;
+}
