@@ -36,6 +36,7 @@ export function RouteLinks() {
             <Route path="/termsAndConditions" Component={TermsConditions}/>
             <Route path="/contactUs" Component={ContactUs}/>
             <Route path="/deleteTrainee" Component={DeleteTrainee}/>
+            <Route path="" Component={HomeStart}/>
           </Routes>
       </div>
     );
