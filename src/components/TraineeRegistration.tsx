@@ -203,11 +203,11 @@ const TraineeRegistrationForm: React.FC = () => {
               )}
 
               <div className="register-form-group">
-                <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
+                <Button type="submit" variant="contained" style={{marginTop:'20px'}} color="primary" disabled={isSubmitDisabled}>
                   Register
                 </Button>
                 <Link to="/traineeRegistration" onClick={handleReset}>
-                  <Button variant="contained" style={{marginLeft:'20px'}} onClick={handleReset}>Reset</Button>
+                  <Button variant="contained" style={{marginLeft:'20px',marginTop:'20px'}} onClick={handleReset}>Reset</Button>
                 </Link>
               </div>
             </form>
