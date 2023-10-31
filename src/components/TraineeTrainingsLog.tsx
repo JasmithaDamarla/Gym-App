@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import {
   Button,
   TextField,
@@ -18,6 +17,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import '../component-styles/TraineeTrainingsLog.css';
+import { useAppSelector } from '../redux/Hooks';
 
 interface TraineeTrainingTypeResponseDTO {
   trainingName: string;
@@ -28,8 +28,10 @@ interface TraineeTrainingTypeResponseDTO {
 }
 
 const TraineeTrainings: React.FC = () => {
-  const location = useLocation();
-  const [userName, setUserName] = useState(location.state.userName);
+  // const location = useLocation();
+  const userName = useAppSelector((state) => state.userData.userName);
+  // const [userName, setUserName] = useState(location.state.userName);
+
   const [trainerName, setTrainerName] = useState('');
   const [specialization, setSpecialization] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -72,7 +74,7 @@ const TraineeTrainings: React.FC = () => {
             <TextField
               type="text"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              // onChange={(e) => setUserName(e.target.value)}
               fullWidth
               InputProps={{ readOnly: true }}
             />

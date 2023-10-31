@@ -12,8 +12,10 @@ import TrainerTrainings from "./components/TrainerTrainingsLog";
 import UpdateTraineeProfile from "./components/UpdateTraineeProfile";
 import UpdateTrainerProfile from "./components/UpdateTrainerProfile";
 import NotFoundPage from "./components/NotFoundPage";
-import { AboutUs, ContactUs, TermsConditions } from "./components/HomePage";
 import DeleteTrainee from "./components/DeleteTrainee";
+import { AboutUs } from "./components/AboutUs";
+import { ContactUs } from "./components/ContactUs";
+import { TermsConditions } from "./components/TermsConditions";
 
 export function RouteLinks() {
     return (

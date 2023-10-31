@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Header from './HomePage';
 import { TextField, Button, Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import '../component-styles/Login.css';
+import { useSelector } from 'react-redux';
+import { setUserName, setUserType } from '../redux/UserData';
+import { login } from '../redux/LoginStatus';
+import { useAppDispatch } from '../redux/Hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +15,12 @@ const Login: React.FC = () => {
     userType: 'trainee',
     captcha: '',
   });
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  // const [isLoggedin, setIsLoggedin] = useState(false);
+  const {isLoggedin} = useSelector((state: any)=>state.loginStatus.isLogIn);
   const [systemGeneratedCaptcha, setSystemGeneratedCaptcha] = useState(generateCaptcha());
   const [warningMessage, setWarningMessage] = useState('');
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function generateCaptcha() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -44,6 +52,7 @@ const Login: React.FC = () => {
     };
 
     if (username.length > 3 && password.length >= 8) {
+      
       if (captcha === systemGeneratedCaptcha) {
         console.log(formData);
         fetch('http://localhost:4001/main/user/login', {
@@ -56,13 +65,25 @@ const Login: React.FC = () => {
           .then((response) => {
             if (response.ok) {
               console.log('Logged in successfully');
-              localStorage.setItem('userName', username);
-              localStorage.setItem('userType',userType);
-              setIsLoggedin(true);
-              localStorage.setItem('login', '1');
+              // localStorage.setItem('userName', username);
+              // localStorage.setItem('userType',userType);
+              dispatch(setUserName(username));
+              dispatch(setUserType(userType));
+              // setIsLoggedin(true);
+              // localStorage.setItem('login', '1');
+              dispatch(login());
+              console.log("after dispatch");
               if (userType === 'trainee') {
                 window.location.href = '/traineeProfile';
+                // navigate("/traineeProfile");
+                /*
+                difference between navigate() and window.location.href is that 
+                  when i used navigate(), menu items are automatically openning without click
+                    the menu items are being popped up
+                  which is not happening with "window.location.href"
+                */
               } else if (userType === 'trainer') {
+                //navigate('/trainerProfile');
                 window.location.href = '/trainerProfile';
               } 
             } else {

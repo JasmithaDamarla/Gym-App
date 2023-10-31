@@ -14,6 +14,7 @@ import {
   TablePagination
 } from '@mui/material';
 import '../component-styles/TrainerProfile.css';
+import { useAppSelector } from '../redux/Hooks';
 
 interface Trainer {
   firstName: string;
@@ -33,12 +34,13 @@ const TrainerDetails: React.FC = () => {
   const [trainerData, setTrainerData] = useState<TrainerData | null>(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const userName = useAppSelector((state) => state.userData.userName);
 
   const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
   };
   useEffect(() => {
-    fetch('http://localhost:4001/main/trainer/getTrainerProfile?userName=' + localStorage.getItem('userName'))
+    fetch('http://localhost:4001/main/trainer/getTrainerProfile?userName=' + userName)//localStorage.getItem('userName'))
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching data');

@@ -10,10 +10,13 @@ import {
   InputLabel,
   Paper,
 } from '@mui/material';
+import { useAppSelector } from '../redux/Hooks';
 
 const AddTraining = () => {
+  const userName = useAppSelector((state) => state.userData.userName);
+  
   const [formData, setFormData] = useState({
-    traineeUserName: localStorage.getItem('userName'),
+    traineeUserName: userName,//localStorage.getItem('userName'),
     trainerUserName: '',
     trainingName: '',
     trainingDate: '',
@@ -141,7 +144,8 @@ const AddTraining = () => {
             id="add-training-traineeUserName"
             // name="traineeUserName"
             label='Trainee UserName'
-            value={localStorage.getItem('userName')}
+            // value={localStorage.getItem('userName')}
+            value={userName}
             onChange={handleInputChange}
             required
             style={{width:'300px',marginRight:'40px'}}

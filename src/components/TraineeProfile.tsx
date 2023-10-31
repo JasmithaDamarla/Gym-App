@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
   Paper,
@@ -14,6 +14,8 @@ import {
   TablePagination,
 } from '@mui/material';
 import '../component-styles/TraineeProfile.css';
+import { useAppDispatch, useAppSelector } from '../redux/Hooks';
+import { logout } from '../redux/LoginStatus';
 
 interface Trainer {
   userName: string;
@@ -37,13 +39,17 @@ const TraineeDetails = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
+  
+  const userName = useAppSelector((state) => state.userData.userName);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
   useEffect(() => {
-    fetch('http://localhost:4001/main/trainee/profile?userName=' + localStorage.getItem('userName'))
+    fetch('http://localhost:4001/main/trainee/profile?userName=' + userName)//localStorage.getItem('userName'))
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching data');
@@ -55,7 +61,12 @@ const TraineeDetails = () => {
         setError(error);
         console.error('Error fetching trainer data:', error);
         // localStorage.setItem('login','0');
-        window.location.href = '/notFound';
+        // window.location.href = '/notFound';
+
+
+        dispatch(logout());
+        console.log(userName);
+        navigate("/notFound");
       });
   }, []);
 
@@ -77,7 +88,7 @@ const TraineeDetails = () => {
         <p className='traineeProfile-heading'>Trainee Details</p>
         <Link to='/updateTraineeProfile' state={{ traineeData }}>
           <Button variant='contained' color='primary'>
-            Update
+            Update Profile
           </Button>
         </Link>
       </Typography>

@@ -6,23 +6,39 @@ import {
   Typography 
 } from '@mui/material';
 import '../component-styles/ChangePassword.css';
-import { useLocation } from 'react-router-dom';
+import { useAppSelector } from '../redux/Hooks';
 
 const ChangePassword: React.FC = () => {
+ 
+  // const location = useLocation();
+  // const [userName,setUserName] = useState(location.state.userName);
+  const userName = useAppSelector((state) => state.userData.userName);
   const initialFormData = {
-    userName: '',
+    userName: userName,
     oldPassword: '',
     newPassword: '',
     newPasswordConfirmation: '',
   };
-  const location = useLocation();
-  const [userName,setUserName] = useState(location.state.userName);
 
   const [formData, setFormData] = useState(initialFormData);
   const [submissionStatus, setSubmissionStatus] = useState({
     success: false,
     error: '',
   });
+
+  const showMessage = (type: 'success' | 'error', message: string) => {
+
+    setSubmissionStatus((prevStatus) => ({
+      ...prevStatus,
+      [type]: message,
+    }));
+    setTimeout(() => {
+      setSubmissionStatus((prevStatus) => ({
+        ...prevStatus,
+        [type]: '',
+      }));
+    }, 3000);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,6 +74,12 @@ const ChangePassword: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <div className="change-password-box">
+          {submissionStatus.success && (
+            <div className={`success-box ${submissionStatus.success ? 'show' : 'hide'}`}>Password updated successfullyy</div>
+          )}
+          {submissionStatus.error && (
+            <div className="failure-box">Failed to change Password</div>
+          )}
         <Typography variant="h4" className="change-password-heading">
           Change Password
         </Typography>
@@ -115,7 +137,7 @@ const ChangePassword: React.FC = () => {
             margin="normal"
           />
           <div className="button-container">
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" onClick={() => showMessage('success', 'Password updated successfully')}>
               Change Password
             </Button>
             <Button type="button" onClick={handleReset} variant="contained" color="secondary">
@@ -123,12 +145,12 @@ const ChangePassword: React.FC = () => {
             </Button>
           </div>
         </form>
-        {submissionStatus.success && (
+        {/* {submissionStatus.success && (
           <div className="submission-success">Password updated successfully</div>
         )}
         {submissionStatus.error && (
           <div className="submission-error">{submissionStatus.error}</div>
-        )}
+        )} */}
       </div>
     </Container>
   );
